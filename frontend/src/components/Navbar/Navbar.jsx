@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {Link} from 'react-router-dom'
 import { logout, setUser } from '../../features/authSlice';
 import LogoutModal from '../Authentication/LogoutModal';
+import VideosUploadModal from '../VideosUpload/VideoUploadModal'
 
 function NavScrollExample() {
     const dispatch = useDispatch()
@@ -21,8 +22,10 @@ function NavScrollExample() {
     let {user} = useSelector((state)=>state.auth)
     const token = localStorage.getItem('access_token');
     if(token){
-        const {name} = decodeToken(token);
-        dispatch(setUser(name))
+      
+        const {name,id} = decodeToken(token);
+        console.log(name,id)
+        dispatch(setUser({name,id}))
     }
     const handleLogout = ()=>{
         localStorage.removeItem('access_token');
@@ -50,7 +53,7 @@ function NavScrollExample() {
           <Button className="me-2" style={{borderRadius: '0px'}} variant="outline-primary"><SearchIcon/></Button>
         </Form>
             <Nav.Link className='me-3' href="#action1">Home</Nav.Link>
-            {user?<Nav.Link  href="#action2">Upload Videos</Nav.Link> :''}
+            {user?<Nav.Link  href="#action2"><VideosUploadModal/></Nav.Link> :''}
             
             {/* <NavDropdown className='me-5' title="Link" id="navbarScrollingDropdown">
               <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
@@ -71,7 +74,7 @@ function NavScrollExample() {
             
             {user?<Button onClick={handleLogout}  variant="outline-success">Logout</Button>:<Button variant="outline-success"><Link to="/authenticate">Login</Link></Button>}
             
-            {user?<Avatar size='sm' style={{marginLeft:'2em'}} name={user} src='https://bit.ly/broken-link' />:''}
+            {user?<Avatar size='sm' style={{marginLeft:'2em'}} name={user} src='' />:''}
 {/* <LogoutModal/> */}
            
           {/* </Form> */}

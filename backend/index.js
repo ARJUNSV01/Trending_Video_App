@@ -6,6 +6,8 @@ import cors from 'cors'
 import cookieParser from "cookie-parser"
 import bodyParser from "body-parser"
 import userRoutes from './routes/userRoutes.js'
+import videoRoutes from './routes/videoRoutes.js'
+
 
 const app = express();
 dotenv.config()
@@ -19,6 +21,7 @@ app.get('/', (req, res) => {
 })
 
 app.use('/api/users',userRoutes)
+app.use('/api/videos',videoRoutes)
 
 app.use((err,req,res,next)=>{
     const errorStatus = err.status || 500

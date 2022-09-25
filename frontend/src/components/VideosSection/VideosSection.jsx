@@ -1,60 +1,44 @@
-import axios from "axios";
-import React from "react";
-import { useState } from "react";
-import Container from "react-bootstrap/Container";
+
+import axios from 'axios'
+import { useEffect,useState } from 'react'
+import Container from 'react-bootstrap/Container';
+import { serverURL } from '../../serverUrl'
+import ReactPlayer from 'react-player'
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 const VideosSection = () => {
-  //     const[image,setImage]=useState('')
-  //     const uploadVideos = ()=>{
+    const [videos,setVideos] = useState([])
+    const [refresh,setRefresh]=useState('')
 
-  // const formData = new FormData();
-  // formData.append("file",image[0])
-  // formData.append("upload_preset","b9bd2n87")
-  // axios.post("https://api.cloudinary.com/v1_1/groovy-planet/image/upload",formData).then((response)=>{
-  // console.log(response)
-  // }).catch((err)=>{
-  //     console.log(err);
-  // })
-  // }
-  //   return (
-  //     <Container fluid className='mt-5'>
-  //         <input
-  //         type='file'
-  //         onChange={(e)=>{setImage(e.target.files[0])}}
-  //         />
-  //         <button onClick={uploadVideos}>Upload </button>
-  //     </Container>
-  //   )
-  const [video, setVideo] = useState();
+    // const fetchVideos = async()=>{
+    //  const {data} = await axios.get(`${serverURL}/api/videos/fetchVideos`)
+    //     return data
+    // }
 
-  const uploadVideo = async() => {
-    const formData = new FormData();
-    formData.append("file", video);
-    formData.append("upload_preset", "b9bd2n87");
+    useEffect(() => {
+    axios.get(`${serverURL}/api/videos/fetchVideos`).then(({data})=>{
+       
+        setVideos(data)
+    })
 
-    try{
-      const {data} =  await axios.post("https://api.cloudinary.com/v1_1/groovy-planet/video/upload",formData )
-      const url = data.url
-      console.log(data,'data')
-      console.log(url,'ppp')
-    //   const res = await axios.post()
-    }catch(err){
-        console.log(err)
-    }
+    }, [refresh])
     
-     
-  };
   return (
-    <div>
-      <input
-        type="file"
-        onChange={(e) => {
-          setVideo(e.target.files[0]);
-        }}
-      />
-      <input type="submit" value="Upload" onClick={uploadVideo} />
-    </div>
-  );
-};
+    <Container fluid>
+          <div className="row">
+        {videos?videos.map((video)=>{
+            return (
+             
+               <div className="col-12 col-md-3 col-sm-6 mt-5">
+                  {/* <p>{video.url}</p> */}
+<ReactPlayer  width='100%' height='300px' controls url='http://res.cloudinary.com/groovy-planet/video/upload/v1664127501/gmiofbjctunhxdwoj972.mp4' />
+               </div>
+                    )
+                }):''}
+                </div> 
+   </Container> 
+  )
+}
 
-export default VideosSection;
+export default VideosSection

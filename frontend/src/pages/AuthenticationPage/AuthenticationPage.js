@@ -9,12 +9,12 @@ import {
     TabPanel,
   } from "@chakra-ui/react";
   import React, { useEffect } from "react";
-  import Login from "../components/Authentication/Login";
-  import SignUp from "../components/Authentication/SignUp";
+  import Login from "../../components/Authentication/Login";
+  import SignUp from "../../components/Authentication/SignUp";
   import './AuthenticationPage.css';
   import { ToastContainer, toast } from "react-toastify";
   import "react-toastify/dist/ReactToastify.css";
-  import Navbar from '../components/Navbar/Navbar.jsx'
+  import Navbar from '../../components/Navbar/Navbar.jsx'
 import { useNavigate } from "react-router-dom";
   
   const AuthenticationPage = () => {
