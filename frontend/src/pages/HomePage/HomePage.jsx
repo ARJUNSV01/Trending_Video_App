@@ -1,16 +1,14 @@
-import React from 'react'
-import Navbar from '../../components/Navbar/Navbar'
-import VideosSection from '../../components/VideosSection/VideosSection'
-
+import React from "react";
+import Navbar from "../../components/Navbar/Navbar";
+import VideosSection from "../../components/VideosSection/VideosSection";
 
 const HomePage = () => {
-
   return (
     <div>
-      <Navbar/>
-      <VideosSection/>
+      <Navbar />
+      <VideosSection />
     </div>
-  )
-}
+  );
+};
 
-export default HomePage
+export default HomePage;

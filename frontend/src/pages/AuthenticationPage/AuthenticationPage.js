@@ -1,38 +1,35 @@
 import {
-    Box,
-    Container,
-    Tab,
-    TabList,
-    Tabs,
-    Text,
-    TabPanels,
-    TabPanel,
-  } from "@chakra-ui/react";
-  import React, { useEffect } from "react";
-  import Login from "../../components/Authentication/Login";
-  import SignUp from "../../components/Authentication/SignUp";
-  import './AuthenticationPage.css';
-  import { ToastContainer, toast } from "react-toastify";
-  import "react-toastify/dist/ReactToastify.css";
-  import Navbar from '../../components/Navbar/Navbar.jsx'
+  Box,
+  Container,
+  Tab,
+  TabList,
+  Tabs,
+  Text,
+  TabPanels,
+  TabPanel,
+} from "@chakra-ui/react";
+import React, { useEffect } from "react";
+import Login from "../../components/Authentication/Login";
+import SignUp from "../../components/Authentication/SignUp";
+import "./AuthenticationPage.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Navbar from "../../components/Navbar/Navbar.jsx";
 import { useNavigate } from "react-router-dom";
-  
-  const AuthenticationPage = () => {
-    const navigate = useNavigate()
-    useEffect(() => {
-      const token = localStorage.getItem('access_token');
-      if(token){
-        navigate('/')
-      }else{
-        navigate('/authenticate')
-      }
-    
-     
-    }, [])
-    
-    return (
-      
-        <div className="homePage">
+
+const AuthenticationPage = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    const token = localStorage.getItem("access_token");
+    if (token) {
+      navigate("/");
+    } else {
+      navigate("/authenticate");
+    }
+  }, []);
+
+  return (
+    <div className="homePage">
       <Container maxWidth="xl" centerContent>
         <Box
           d="flex"
@@ -61,19 +58,18 @@ import { useNavigate } from "react-router-dom";
             </TabList>
             <TabPanels>
               <TabPanel>
-               <Login/>
+                <Login />
               </TabPanel>
               <TabPanel>
-                <SignUp/>
+                <SignUp />
               </TabPanel>
             </TabPanels>
           </Tabs>
         </Box>
-        <ToastContainer/>
+        <ToastContainer />
       </Container>
-      </div>
-    );
-  };
-  
-  export default AuthenticationPage;
-  
+    </div>
+  );
+};
+
+export default AuthenticationPage;

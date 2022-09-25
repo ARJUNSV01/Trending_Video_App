@@ -1,9 +1,12 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
-const VideoSchema = mongoose.Schema({
-    url:{type: 'string',required:true},
-    user:{ type: mongoose.Schema.Types.ObjectId, ref: "User" },
+const VideoSchema = mongoose.Schema(
+  {
+    url: { type: "string", required: true },
+    user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    viewsCount: { type: "number" },
+  },
+  { timeStamps: true }
+);
 
-},{timeStamps:true})
-
-export default mongoose.model("Video",VideoSchema);
+export default mongoose.model("Video", VideoSchema);

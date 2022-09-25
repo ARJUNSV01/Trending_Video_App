@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import VideosSection from './VideosUploadSection';
+import React, { useState } from "react";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import VideosSection from "./VideosUploadSection";
 
 function VideoUploadModal() {
   const [show, setShow] = useState(false);
@@ -11,9 +11,7 @@ function VideoUploadModal() {
 
   return (
     <>
-      <span onClick={handleShow}>
-        Upload Videos
-      </span>
+      <span onClick={handleShow}>Upload Videos</span>
 
       <Modal
         show={show}
@@ -25,13 +23,15 @@ function VideoUploadModal() {
           <Modal.Title>Select a video</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-         <VideosSection />
+          <VideosSection />
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary"onClick={handleClose} >Ok</Button>
+          <Button variant="primary" onClick={handleClose}>
+            Ok
+          </Button>
         </Modal.Footer>
       </Modal>
     </>
