@@ -8,15 +8,30 @@ import {
     TabPanels,
     TabPanel,
   } from "@chakra-ui/react";
-  import React from "react";
+  import React, { useEffect } from "react";
   import Login from "../components/Authentication/Login";
   import SignUp from "../components/Authentication/SignUp";
   import './AuthenticationPage.css';
   import { ToastContainer, toast } from "react-toastify";
   import "react-toastify/dist/ReactToastify.css";
+  import Navbar from '../components/Navbar/Navbar.jsx'
+import { useNavigate } from "react-router-dom";
   
-  const HomePage = () => {
+  const AuthenticationPage = () => {
+    const navigate = useNavigate()
+    useEffect(() => {
+      const token = localStorage.getItem('access_token');
+      if(token){
+        navigate('/')
+      }else{
+        navigate('/authenticate')
+      }
+    
+     
+    }, [])
+    
     return (
+      
         <div className="homePage">
       <Container maxWidth="xl" centerContent>
         <Box
@@ -35,7 +50,7 @@ import {
             fontFamily="Work sans"
             color="black"
           >
-            Videos
+            Authenticate
           </Text>
         </Box>
         <Box bg="white" w="100%" p={4} borderRadius="lg" borderWidth="1px">
@@ -60,5 +75,5 @@ import {
     );
   };
   
-  export default HomePage;
+  export default AuthenticationPage;
   

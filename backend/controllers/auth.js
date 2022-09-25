@@ -24,7 +24,7 @@ export const userSignUp = asyncHandler(async (req, res, next) => {
     _id:user._id,
     name:user.name,
     email:user.email,
-    token:generateToken(user._id)
+    token:generateToken(user._id,user.name)
   })
 
 
@@ -51,6 +51,6 @@ export const userLogin = asyncHandler(async (req, res, next) => {
     //   .json({ ...otherDetails });
     res.status(200).json({
       ...otherDetails,
-      token:generateToken()
+      token:generateToken(user._id,user.name)
     })
   });

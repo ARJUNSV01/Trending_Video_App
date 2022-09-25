@@ -19,7 +19,7 @@ const SignUp = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     
-    const {user} = useSelector((state)=>state.auth)
+    const {user,isLoading} = useSelector((state)=>state.auth)
     const handleClick = () => setShow(!show)
     const handleSubmit =async()=>{
       setLoading(true)
@@ -32,7 +32,7 @@ const SignUp = () => {
     await signupSchema.validate(userData,{abortEarly:false}).then((response)=>{
         console.log(response)
         dispatch(signUpUser(userData))  
-        setLoading(false)
+        
        
     }).catch((error)=>{
        setError(error.inner[0].message)
@@ -114,7 +114,7 @@ const SignUp = () => {
     width="100%"
     style={{marginTop: 15}}
     onClick={handleSubmit}
-    isLoading={loading}
+    isLoading={isLoading}
     >
         Sign Up
 </Button>

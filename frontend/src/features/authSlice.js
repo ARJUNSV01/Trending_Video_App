@@ -25,6 +25,7 @@ export const signUpUser = createAsyncThunk(
          console.log(data)
          toast.success('Signup Successful')
          localStorage.setItem('access_token',JSON.stringify(token))
+         
         
 
          return { ...data }
@@ -56,7 +57,14 @@ export const authSlice = createSlice({
     name:'auth',
     initialState,
     reducers:{
-
+        setUser:(state,action)=>{
+            state.user=action.payload
+            state.isLoggedIn = true
+        },
+        logout:(state)=>{
+            state.user=null
+            state.isLoggedIn=false
+        }
     },
     extraReducers:{
         [signUpUser.fulfilled] : (state,action) =>{
@@ -103,5 +111,5 @@ export const authSlice = createSlice({
     }
 
 })
-
+export const {setUser,logout} = authSlice.actions
 export default authSlice.reducer

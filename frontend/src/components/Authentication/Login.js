@@ -14,7 +14,7 @@ const Login = () => {
     const[loading,setLoading]=useState(false)
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const {user} = useSelector((state)=>state.auth)
+    const {user,isLoading} = useSelector((state)=>state.auth)
     const handleClick = () => setShow(!show)
 
     const handleSubmit = async()=>{
@@ -74,6 +74,7 @@ const Login = () => {
         width="100%"
         style={{marginTop: 15}}
         onClick={handleSubmit}
+        isLoading={isLoading}
         >
             Login
     </Button>
