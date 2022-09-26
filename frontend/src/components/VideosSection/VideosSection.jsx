@@ -11,59 +11,68 @@ import { Button } from "@chakra-ui/react";
 const VideosSection = () => {
   const [videos, setVideos] = useState([]);
   const [refresh, setRefresh] = useState("");
-  const [play,setPlay] = useState(false)
-  const [player,setPlayer]= useState()
- 
+  const [play, setPlay] = useState(false);
+  const [videoPlayers, setVideoPlayers] = useState([]);
 
   const updateViews = async (id) => {
     await axios.put(`${serverURL}/api/videos/updateViews/${id}`);
-    console.log(player.getState(),'lookkk')
+    console.log(videoPlayers.getState(), "lookkk");
   };
   const handleVideo = (id) => {
-    
     console.log("vid", id);
     updateViews(id);
   };
 
   useEffect(() => {
-    axios.get(`${serverURL}/api/videos/fetchVideos`).then(({ data }) => {
-      setVideos(data);
-    });
+    const fetchVideos = () =>{
+      axios.get(`${serverURL}/api/videos/fetchVideos`).then(({ data }) => {
+        setVideos(data);
+      }).catch((err)=>{
+        console.log(err)
+      })
+    }
+    fetchVideos()
   }, [refresh]);
-
+  
+  const playVideo = (index) => {
+    // const {player} = videoPlayers[index].getState()
+    videoPlayers[index].playbackRate = 3;
+    videoPlayers[index].actions.play();
+  };
+  const reloadVideo = (index) => {
+    videoPlayers[index].load();
+  };
 
   return (
     <Container fluid>
       <div className="row">
         {videos
-          ? videos.map((video) => {
+          ? videos.map((video, index) => {
               return (
                 <div
                   key={video._id}
                   className="col-12 col-md-3 col-sm-6 mt-5"
                   onMouseEnter={() => {
-                      console.log('mouse enter');
-                      player.play()}}
-
+                    playVideo(index);
+                  }}
                   onMouseLeave={() => {
-                    player.load()}}
+                    reloadVideo(index);
+                  }}
                   onClick={() => {
                     handleVideo(video._id);
                   }}
                 >
-                  {/* <p>{video.url}</p> */}
-                  {/* <ReactPlayer  width='100%' height='300px' controls url='http://res.cloudinary.com/groovy-planet/video/upload/v1664127501/gmiofbjctunhxdwoj972.mp4' /> */}
                   <Player
-                    poster
-                    ref={(player)=>{setPlayer(player)}}
+                    ref={(player) => {
+                      videoPlayers.push(player);
+                    }}
                     muted="true"
                     fluid={false}
                     width="100%"
                     height={300}
                   >
-                      {/* <BigPlayButton position="center" /> */}
+                    {/* <BigPlayButton position="center" /> */}
                     <source src={video.url} />
-                    
                   </Player>
                 </div>
               );
