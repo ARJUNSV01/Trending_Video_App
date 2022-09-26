@@ -8,6 +8,7 @@ Trending_Video_App is a web app for uploading and viewing trending videos.
  <li> Users can upload videos once he/she has logged in</li>
  <li> Users are authenticated and authorized using JWT</li>
  <li>Videos are stored in cloudinary</li>
+ <li>Videos are played in 'react-video'</li>
 </ul>
 
  <h2>ScreenShots</h2>
