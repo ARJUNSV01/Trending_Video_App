@@ -9,7 +9,6 @@ const initialState = {
   isSuccess: false,
   isfailed: false,
   selectedPlayer:'',
-  watchTime:''
 };
 
 export const fetchVideos = createAsyncThunk(
@@ -33,9 +32,6 @@ export const videoSlice = createSlice({
   reducers: {
     setVideo: (state, action) => {
         state.selectedPlayer = action.payload
-      },
-      setWatchTime:(state,action)=>{
-          state.watchTime = action.payload;
       }
   },
   extraReducers: {
@@ -57,5 +53,5 @@ export const videoSlice = createSlice({
     },
   },
 });
-export const { setVideo,setWatchTime } = videoSlice.actions;
+export const { setVideo } = videoSlice.actions;
 export default videoSlice.reducer;

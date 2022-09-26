@@ -8,16 +8,15 @@ import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { logout, setUser } from "../../features/authSlice";
+import { setUser } from "../../features/authSlice";
 import LogoutModal from "../Authentication/LogoutModal";
 import VideosUploadModal from "../VideosUpload/VideoUploadModal";
 
 function NavScrollExample() {
+  const [modalShow, setModalShow] = useState(false);
   const dispatch = useDispatch();
-  // const navigate = useNavigate()
   let { user } = useSelector((state) => state.auth);
   const token = localStorage.getItem("access_token");
   if (token) {
@@ -25,16 +24,12 @@ function NavScrollExample() {
     console.log(name, id);
     dispatch(setUser({ name, id }));
   }
-  const handleLogout = () => {
-    localStorage.removeItem("access_token");
-    dispatch(logout());
-  };
 
   return (
     <Navbar bg="dark" expand="lg" variant="dark">
       <Container fluid>
-        <Navbar.Brand className="me-5" href="/">
-          Video App
+        <Navbar.Brand className=" me-5" href="/">
+          StreamX
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
@@ -60,9 +55,9 @@ function NavScrollExample() {
                 <SearchIcon />
               </Button>
             </Form>
-            <Nav.Link className="me-3" href="#action1">
+            {/* <Nav.Link className="me-3" href="#action1">
               Home
-            </Nav.Link>
+            </Nav.Link> */}
             {user ? (
               <Nav.Link href="#action2">
                 <VideosUploadModal />
@@ -70,11 +65,14 @@ function NavScrollExample() {
             ) : (
               ""
             )}
-            
           </Nav>
 
+          <LogoutModal show={modalShow} onHide={() => setModalShow(false)} />
           {user ? (
-            <Button onClick={handleLogout} variant="outline-success">
+            <Button
+              variant="outline-success"
+              onClick={() => setModalShow(true)}
+            >
               Logout
             </Button>
           ) : (
@@ -93,9 +91,6 @@ function NavScrollExample() {
           ) : (
             ""
           )}
-          {/* <LogoutModal/> */}
-
-          {/* </Form> */}
         </Navbar.Collapse>
       </Container>
     </Navbar>

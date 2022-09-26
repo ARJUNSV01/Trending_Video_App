@@ -11,7 +11,7 @@ function VideoUploadModal() {
 
   return (
     <>
-      <span onClick={handleShow}>Upload Videos</span>
+      <span  onClick={handleShow}>Upload Videos</span>
 
       <Modal
         show={show}

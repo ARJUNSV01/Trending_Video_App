@@ -3,7 +3,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { Player } from "video-react";
 import { useDispatch, useSelector } from "react-redux";
-import { setVideo, setWatchTime } from "../../features/videoSlice";
+import { setVideo } from "../../features/videoSlice";
 import axios from "axios";
 import { serverURL } from "../../serverUrl";
 
@@ -31,13 +31,10 @@ function VideoPlayerModal(props) {
         dispatch(setVideo(player));
       }
     };
-
-
   }, [videoPlayer]);
- 
+
   const { selectedPlayer } = useSelector((state) => state.video);
- const {currentTime} = selectedPlayer
-//   updateWatchTime(props.id, selectedPlayer.currentTime);
+  const { currentTime } = selectedPlayer;
 
   return (
     <Modal
@@ -46,10 +43,7 @@ function VideoPlayerModal(props) {
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
-      <Modal.Header  >
-        {/* <Modal.Title id="contained-modal-title-vcenter">
-         
-        </Modal.Title> */}
+      <Modal.Header>
       </Modal.Header>
       <Modal.Body>
         <Player
@@ -63,10 +57,13 @@ function VideoPlayerModal(props) {
         </Player>
       </Modal.Body>
       <Modal.Footer>
-        <Button className="btn btn-dark" onClick={()=>{
-            updateWatchTime(props.id,currentTime)
-            props.onHide()
-        }}>
+        <Button
+          className="btn btn-dark"
+          onClick={() => {
+            updateWatchTime(props.id, currentTime);
+            props.onHide();
+          }}
+        >
           Close
         </Button>
       </Modal.Footer>

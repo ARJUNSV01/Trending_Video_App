@@ -12,7 +12,7 @@ const VideosSection = () => {
   const [videoPlayers, setVideoPlayers] = useState([]);
   const [modalShow, setModalShow] = useState(false);
   const [videoUrl, setVideoUrl] = useState("");
-  const [videoId,setVideoId] = useState('')
+  const [videoId, setVideoId] = useState("");
   const dispatch = useDispatch();
   const { videos, isLoading } = useSelector((state) => state.video);
 
@@ -23,7 +23,7 @@ const VideosSection = () => {
   const handleVideo = (url, id) => {
     setModalShow(true);
     setVideoUrl(url);
-    setVideoId(id)
+    setVideoId(id);
     updateViews(id);
   };
 

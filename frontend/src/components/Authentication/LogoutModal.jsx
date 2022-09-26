@@ -1,45 +1,37 @@
-import {
-  Button,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
-  useDisclosure,
-} from "@chakra-ui/react";
-import React from "react";
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../features/authSlice';
 
-// const LogoutModal = () => {
-//   return (
-//     <div>LogoutModal</div>
-//   )
-// }
+function LogoutModal(props) {
+  const dispatch = useDispatch()
+  const handleLogout = ()=>{
+    props.onHide()
+    localStorage.removeItem("access_token");
+    dispatch(logout());
 
-// export default LogoutModal
-function BasicUsage() {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  }
   return (
-    <>
-      <Button onClick={onOpen}>Logout</Button>
+    <Modal
+      {...props}
+      size="md"
+      aria-labelledby="contained-modal-title-vcenter"
+      
+    >
+      <Modal.Header closeButton>
+        <Modal.Title id="contained-modal-title-vcenter">
+          Alert
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <p className='fs-5 '>Are you sure you want to logout?</p>
 
-      <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Modal Title</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>{/* <Lorem count={2} /> */}</ModalBody>
-
-          <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={onClose}>
-              Close
-            </Button>
-            <Button variant="ghost">Secondary Action</Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
-    </>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button variant="danger" onClick={props.onHide}>No</Button>
+        <Button variant='success' onClick={handleLogout}>Yes</Button>
+      </Modal.Footer>
+    </Modal>
   );
 }
-export default BasicUsage;
+export default LogoutModal
