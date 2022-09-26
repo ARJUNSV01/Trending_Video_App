@@ -35,7 +35,7 @@ Trending_Video_App is a web app for uploading and viewing trending videos.
 npm start
 
 <h2>Note</h2>
-<h4>Database URI, JWT secret and Port are stored in env file,so please copy the data below and paste in a env file in the backend folder</h4>
+<h4>Database URI, JWT secret and Port are stored in env file,so please copy the data below and paste in an env file in the backend folder</h4>
 
 <h5>PORT = 5000</h5>
 <h5>MONGO_URI = mongodb+srv://arjun:arjun1998@cluster0.l2plmq3.mongodb.net/?retryWrites=true&w=majority</h5>
