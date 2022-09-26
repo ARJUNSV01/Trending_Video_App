@@ -2,37 +2,37 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
 import { serverURL } from "../../serverUrl";
-import ReactPlayer from "react-player";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-// import '~video-react/dist/video-react.css';
-import { BigPlayButton, Player } from "video-react";
-import { Button } from "@chakra-ui/react";
+import {  Player } from "video-react";
+import { Button, Spinner } from "@chakra-ui/react";
+import VideoPlayerModal from "./VideoPlayerModal";
+
 const VideosSection = () => {
   const [videos, setVideos] = useState([]);
-  const [refresh, setRefresh] = useState("");
-  const [play, setPlay] = useState(false);
+  const [loading, setLoading] = useState("");
   const [videoPlayers, setVideoPlayers] = useState([]);
+  const [modalShow, setModalShow] = useState(false);
+  const [videoUrl,setVideoUrl]= useState('')
 
   const updateViews = async (id) => {
     await axios.put(`${serverURL}/api/videos/updateViews/${id}`);
-    console.log(videoPlayers.getState(), "lookkk");
   };
-  const handleVideo = (id) => {
-    console.log("vid", id);
-    updateViews(id);
+  const handleVideo = (url) => {
+    setModalShow(true)
+    setVideoUrl(url)
   };
 
   useEffect(() => {
+    setLoading(true)
     const fetchVideos = () =>{
       axios.get(`${serverURL}/api/videos/fetchVideos`).then(({ data }) => {
+        setLoading(false)
         setVideos(data);
       }).catch((err)=>{
         console.log(err)
       })
     }
     fetchVideos()
-  }, [refresh]);
+  }, []);
   
   const playVideo = (index) => {
     // const {player} = videoPlayers[index].getState()
@@ -45,7 +45,17 @@ const VideosSection = () => {
 
   return (
     <Container fluid>
-      <div className="row">
+      <VideoPlayerModal
+      backdrop="static"
+      keyboard
+       url={videoUrl}
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+      />
+      
+      <div className="row position-relative">
+       {/* {loading?<div style={{position: 'absolute',top: '50%',left: '50%', transform: 'translate(-50%, -50%)'}}>jkgkjg</div>:''}  */}
+      
         {videos
           ? videos.map((video, index) => {
               return (
@@ -59,9 +69,11 @@ const VideosSection = () => {
                     reloadVideo(index);
                   }}
                   onClick={() => {
-                    handleVideo(video._id);
+                    console.log('clicked');
+                    handleVideo(video.url);
                   }}
                 >
+                   {/* <VideoPlayerModal/> */}
                   <Player
                     ref={(player) => {
                       videoPlayers.push(player);
