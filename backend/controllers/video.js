@@ -13,3 +13,9 @@ export const updateViews = asyncHandler(async (req, res, next) => {
   );
   res.status(200).json({ message: "updated count" });
 });
+export const updateWatchTime = asyncHandler(async (req, res, next) => {
+const videoId = req.params.id;
+const {duration} = req.body
+const data = await Video.updateOne({_id: videoId}, { $inc: {watchDuration:duration}})
+console.log(data)
+})
