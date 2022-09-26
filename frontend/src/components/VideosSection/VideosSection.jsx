@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
 import { serverURL } from "../../serverUrl";
 import { Player } from "video-react";
-import { Button, Spinner } from "@chakra-ui/react";
+import {  Spinner } from "@chakra-ui/react";
 import VideoPlayerModal from "./VideoPlayerModal";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchVideos } from "../../features/videoSlice";

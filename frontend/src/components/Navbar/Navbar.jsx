@@ -26,7 +26,7 @@ function NavScrollExample() {
   }
 
   return (
-    <Navbar bg="dark" expand="lg" variant="dark">
+    <Navbar sticky='top' bg="dark" expand="lg" variant="dark">
       <Container fluid>
         <Navbar.Brand className=" me-5" href="/">
           StreamX

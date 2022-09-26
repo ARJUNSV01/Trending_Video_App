@@ -33,15 +33,20 @@ const VideosUploadSection = () => {
         );
         console.log(data);
         const url = data.secure_url;
-
+        const accessToken = localStorage.getItem("access_token");
         const videoData = {
           url,
-          userId,
+          userId
+        };
+
+        const config = {
+          headers: { accessToken: accessToken },
         };
 
         const res = await axios.post(
           `${serverURL}/api/users/uploadVideo`,
-          videoData
+          videoData,
+          config
         );
         console.log(res);
 
@@ -81,12 +86,10 @@ const VideosUploadSection = () => {
           setVideo(e.target.files[0]);
         }}
       />
-      
 
       <Button isLoading={loading} onClick={uploadVideo}>
         Upload
       </Button>
-      
     </div>
   );
 };
